@@ -1,6 +1,5 @@
 package com.bbbrrr8877.android.shoppinglist.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bbbrrr8877.android.shoppinglist.data.ShopListRepositoryImpl
 import com.bbbrrr8877.android.shoppinglist.domain.*
@@ -10,7 +9,6 @@ class MainViewModel : ViewModel() {
     //Incorrect realisation. Don't do that. Use DI
     private val repository = ShopListRepositoryImpl
 
-    private val getShopItemUseCase = GetShopItemUseCase(repository)
     private val getShopListUseCase = GetShopListUseCase(repository)
     private val deleteShopItemUseCase = DeleteShopItemUseCase(repository)
     private val editShopItemUseCase = EditShopItemUseCase(repository)
@@ -26,7 +24,4 @@ class MainViewModel : ViewModel() {
         editShopItemUseCase.editShopItem(newItem)
     }
 
-    fun getShopItemDetails(shopItemId: Int): ShopItem {
-        return getShopItemUseCase.getShopItem(shopItemId)
-    }
 }
