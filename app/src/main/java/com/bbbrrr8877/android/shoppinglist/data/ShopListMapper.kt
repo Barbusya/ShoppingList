@@ -2,24 +2,24 @@ package com.bbbrrr8877.android.shoppinglist.data
 
 import com.bbbrrr8877.android.shoppinglist.domain.ShopItem
 
+
 class ShopListMapper {
 
-    fun mapEntityToDbModel(shopItem: ShopItem) = ShopItemDBModel(
+    fun mapEntityToDbModel(shopItem: ShopItem) = ShopItemDbModel(
         id = shopItem.id,
         name = shopItem.name,
         count = shopItem.count,
-        enabled = shopItem.enabled,
+        enabled = shopItem.enabled
     )
 
-    fun mapDbModelToEntity(shopItemDbModel: ShopItemDBModel) = ShopItem(
+    fun mapDbModelToEntity(shopItemDbModel: ShopItemDbModel) = ShopItem(
         id = shopItemDbModel.id,
         name = shopItemDbModel.name,
         count = shopItemDbModel.count,
-        enabled = shopItemDbModel.enabled,
+        enabled = shopItemDbModel.enabled
     )
 
-    fun mapListDbModelToListEntity(list: List<ShopItemDBModel>) = list.map {
+    fun mapListDbModelToListEntity(list: List<ShopItemDbModel>) = list.map {
         mapDbModelToEntity(it)
     }
-
 }
