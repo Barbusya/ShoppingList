@@ -1,9 +1,10 @@
 package com.bbbrrr8877.android.shoppinglist.data
 
 import com.bbbrrr8877.android.shoppinglist.domain.ShopItem
+import javax.inject.Inject
 
 
-class ShopListMapper {
+class ShopListMapper @Inject constructor() {
 
     fun mapEntityToDbModel(shopItem: ShopItem) = ShopItemDbModel(
         id = shopItem.id,
