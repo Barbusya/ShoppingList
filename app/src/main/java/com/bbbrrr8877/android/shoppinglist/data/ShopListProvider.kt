@@ -6,6 +6,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
+import com.bbbrrr8877.android.shoppinglist.domain.ShopItem
 import com.bbbrrr8877.android.shoppinglist.presentation.ShopApplication
 import javax.inject.Inject
 
@@ -18,8 +19,11 @@ class ShopListProvider : ContentProvider() {
     @Inject
     lateinit var shopListDao: ShopListDao
 
+    @Inject
+    lateinit var mapper: ShopListMapper
+
     private val uriMather = UriMatcher(UriMatcher.NO_MATCH).apply {
-        addURI("com.bbbrrr8877.android.shoppinglist", "shop_items/*", GET_SHOP_ITEMS_QUERY)
+        addURI("com.bbbrrr8877.android.shoppinglist", "shop_items", GET_SHOP_ITEMS_QUERY)
     }
 
     override fun onCreate(): Boolean {
@@ -48,8 +52,24 @@ class ShopListProvider : ContentProvider() {
         TODO("Not yet implemented")
     }
 
-    override fun insert(p0: Uri, p1: ContentValues?): Uri? {
-        TODO("Not yet implemented")
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        when (uriMather.match(uri)) {
+            GET_SHOP_ITEMS_QUERY -> {
+                if (values == null) return null
+                val id = values.getAsInteger("id")
+                val name = values.getAsString("name")
+                val count = values.getAsInteger("count")
+                val enabled = values.getAsBoolean("enabled")
+                val shopItem = ShopItem(
+                    id = id,
+                    name = name,
+                    count = count,
+                    enabled = enabled
+                )
+                shopListDao.addShopItemSync(mapper.mapEntityToDbModel(shopItem))
+            }
+        }
+        return null
     }
 
     override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {

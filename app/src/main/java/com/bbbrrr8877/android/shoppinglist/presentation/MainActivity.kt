@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedList
 
         thread {
             val cursor = contentResolver.query(
-                Uri.parse("content://com.bbbrrr8877.android.shoppinglist/shop_items/3"),
+                Uri.parse("content://com.bbbrrr8877.android.shoppinglist/shop_items"),
                 null,
                 null,
                 null,
